@@ -1,3 +1,22 @@
+Common Solutions :
+1. Brute Force (O(n^2)): Iterate through all possible pairs.
+    -Outer loop i from 0 to n-1.
+    -Inner loop j from i+1 to n-1.
+    -Check if nums[i] + nums[j] == target.
+
+2. Using a Hash Map/Dictionary (O(n) on average):
+    -Iterate through the array once.
+    -For each number num at index i:
+    -Calculate complement = target - num.
+    -Check if complement exists in the hash map. If it does, you've found your pair (current index i and the index stored for complement).
+    -If complement doesn't exist, add num and its index i to the hash map.
+
+
+
+
+
+
+
 //1. Two Sum
 //Approach 1 - O(n^2)
 class Solution {
@@ -16,3 +35,35 @@ class Solution {
         return arr;
     }
 }
+
+
+
+//Approach 2 - TC= O(n)   SC= O(n)
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer,Integer>m=new HashMap<>();
+        int arr[]=new int[2];
+
+        for(int i=0;i<nums.length;i++){
+            int comp=target-nums[i];
+            if(m.containsKey(comp)){
+                arr[0]=m.get(comp);
+                arr[1]=i;
+            }
+            else{
+                m.put(nums[i],i);
+            }
+        }
+
+   
+        return arr;
+    }
+}
+
+
+
+
+
+
+
+
