@@ -1,0 +1,31 @@
+Approach
+    -Create a dummy node.
+    -Set dummy.next to the original head.
+    -Initialize a current pointer to dummy.
+    -While current.next is not null:
+    a.  If current.next.val equals the val to remove:
+        i.  Set current.next = current.next.next (bypassing the node).
+    b.  Else (if current.next.val does not equal val):
+        i.  Move current to current.next.
+    -Return dummy.next.
+
+// TC = O(n)  SC = O(1)
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        if(head==null )return head;
+        if(head.next==null && head.val!=val)return head;
+        ListNode nhead=new ListNode(1);
+        nhead.next=head;
+        ListNode temp=nhead;
+
+        while(temp.next!=null){
+            if(temp.next.val==val){
+                temp.next=temp.next.next;
+            }
+            else{
+                temp=temp.next;
+            }
+        }
+        return nhead.next;
+    }
+}
