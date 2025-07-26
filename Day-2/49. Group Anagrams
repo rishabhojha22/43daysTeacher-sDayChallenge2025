@@ -1,0 +1,38 @@
+Approach-
+1.  For each input word, sort its characters to create a unique "canonical" string (e.g., "eat" -> "aet", "tea" -> "aet").
+2.  Use a hash map where keys are these sorted strings and values are lists of the original words.
+3.  Iterate through the input words:
+    * Generate the sorted key for the current word.
+    * Add the original word to the list associated with its sorted key in the map (create a new list if the key is not yet present).
+4.  The final result is all the lists (values) from the hash map.
+
+
+
+//TC=O(nlogn)  SC=O(n)
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>>l=new ArrayList<>();
+        Map<String,List<String>>m=new HashMap<>();
+
+        for(int i=0;i<strs.length;i++){
+            char arr[]=strs[i].toCharArray();
+            Arrays.sort(arr);
+            String temp=new String(arr);
+            if(!m.containsKey(temp)){
+                List<String>n=new ArrayList<>();
+                n.add(strs[i]);
+                m.put(temp, n);
+            }
+            else{
+                m.get(temp).add(strs[i]);
+            }
+        }
+
+        for(String i:m.keySet()){
+            l.add(m.get(i));
+        }
+
+        return l;
+    }
+}
