@@ -5,6 +5,7 @@ Approach-
 4.  Otherwise (both exist and have same value), recursively check if their left subtrees are the same AND their right subtrees are the same.
 
 
+//TC=O(N)  SC=O(H)
 class Solution {
 
     public boolean isIdentical(TreeNode p,TreeNode q){
