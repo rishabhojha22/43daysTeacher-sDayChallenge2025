@@ -1,0 +1,101 @@
+// Approach-1 using custom data structure and single stack TC=O(1) SC=O(2*n)
+class MinStack {
+    private class Element{
+        int val;
+        int minSofar;
+        Element(int val, int minSofar){
+            this.val=val;
+            this.minSofar=minSofar;
+        }
+    }
+
+    private Stack<Element>s;
+    public MinStack() {
+        s=new Stack<>();
+    }
+    
+    public void push(int val) {
+        if(s.isEmpty()){
+            s.push(new Element(val,val));
+        }
+        else{
+            s.push(new Element(val,Math.min(val,s.peek().minSofar)));
+        }
+    }
+         
+    
+    public void pop() {
+        s.pop();
+    }
+    
+    public int top() {
+        return s.peek().val;
+    }
+    
+    public int getMin() {
+        return s.peek().minSofar;
+    }
+}
+
+
+
+// Approach-2 using single stack and one variable TC=O(1) SC=O(n)
+🔍 Key Idea:
+  -Maintain a global minEle (current minimum).
+  -When pushing a new value val:
+      If val >= minEle, push it normally.
+      If val < minEle, encode the value using:
+      val' = 2 * newMinVal - oldMinVal
+      Then update minEle = val and push encodedVal.
+  -When popping:
+      If top >= minEle, it's a normal pop.
+      If top < minEle, it's an encoded value; restore previous oldMinVal = 2*newMinVal - val'
+
+
+class MinStack {
+    Stack<Long> s;
+    long min;
+
+    public MinStack() {
+        s = new Stack<>();
+    }
+
+    public void push(int val) {
+        long value = (long) val;
+        if (s.isEmpty()) {
+            min = value;
+            s.push(value);
+        } else {
+            if (value >= min) {
+                s.push(value);
+            } else {
+                // Encode value using long to avoid overflow
+                long encoded = 2L * value - min;
+                s.push(encoded);
+                min = value;
+            }
+        }
+    }
+
+    public void pop() {
+        long top = s.pop();
+        if (top < min) {
+            min = 2 * min - top;
+        }
+    }
+
+    public int top() {
+        long top = s.peek();
+        if (top < min) {
+            return (int) min;
+        }
+        return (int) top;
+    }
+
+    public int getMin() {
+        return (int) min;
+    }
+}
+
+
+
