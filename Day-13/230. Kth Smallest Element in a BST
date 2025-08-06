@@ -1,0 +1,37 @@
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (true) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            k--;
+            if (k == 0) {
+                return root.val;
+            }
+            root = root.right;
+        }
+    }
+}
+
+
+
+
+
+class Solution {
+    public void helper(TreeNode root, ArrayList<Integer>a){
+        if(root==null)return;
+        a.add(root.val);
+        helper(root.left,a);
+        helper(root.right,a);
+    }
+    public int kthSmallest(TreeNode root, int k) {
+        ArrayList<Integer>a=new ArrayList<>();
+        helper(root,a);
+        Collections.sort(a);
+        int ans=a.get(k-1);
+        return ans;
+    }
+}
