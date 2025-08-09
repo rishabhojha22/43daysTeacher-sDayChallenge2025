@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int arr[]=new int[26];
+
+        int len=s.length();
+        for(int i=0;i<len;i++){
+            int temp=s.charAt(i)-'a';
+            arr[temp]++;
+        }
+
+        int len1=t.length();
+        for(int i=0;i<len1;i++){
+            int temp=t.charAt(i)-'a';
+            arr[temp]--;
+        }
+
+        for(int i=0;i<26;i++){
+            if(arr[i]!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
